@@ -16,6 +16,11 @@
     h3 {
       @apply italic;
     }
+    h1, h2, h3 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
 
     p,
     strong,
