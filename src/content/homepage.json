@@ -1,6 +1,19 @@
 {
-  "heroTitle": "iDoAX's Blog",
-  "heroSubtitle": "分享技术、生活与思考",
-  "heroDescription": "欢迎来到我的个人博客！这里记录我的日常思考、技术总结和生活点滴。",
-  "showRssLink": true
+  "heroTitle": "你好，我是 明 (IDOAX)",
+  "heroSubtitle": "用技术与思考，打造独立高效的数字资产",
+  "heroDescription": "欢迎来到我的个人品牌阵地！这里记录我作为一个一人公司实践者的思考、个人项目以及探索出的高价值商业经验。",
+  "ctaText": "了解我的服务",
+  "ctaLink": "/about",
+  "services": [
+    {
+      "title": "数字产品与技术咨询",
+      "description": "提供极简高效的独立建站、SEO 优化与云端部署方案。",
+      "link": "/about"
+    },
+    {
+      "title": "个人 IP 内容专栏",
+      "description": "分享商业思考、个人成长与一人公司高效工具链。",
+      "link": "/posts"
+    }
+  ]
 }
