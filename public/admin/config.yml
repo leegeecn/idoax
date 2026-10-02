@@ -1,0 +1,26 @@
+backend:
+  name: github
+  repo: leegeecn/idoax
+  branch: main
+  base_url: https://www.idoax.com
+  auth_endpoint: /api/auth
+
+media_folder: "public/assets/blog"
+public_folder: "/assets/blog"
+
+collections:
+  - name: "posts"
+    label: "文章管理"
+    folder: "src/content/posts"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "文章标题", name: "title", widget: "string" }
+      - { label: "作者", name: "author", widget: "string", default: "leegeecn" }
+      - { label: "发布时间", name: "pubDatetime", widget: "datetime" }
+      - { label: "文章简介 (SEO 摘要)", name: "description", widget: "text" }
+      - { label: "自定义链接 (SEO Slug)", name: "postSlug", widget: "string", required: false }
+      - { label: "草稿模式", name: "draft", widget: "boolean", default: false }
+      - { label: "置顶推荐", name: "featured", widget: "boolean", default: false }
+      - { label: "标签 (SEO Tags)", name: "tags", widget: "list", default: ["others"] }
+      - { label: "正文内容", name: "body", widget: "markdown" }
