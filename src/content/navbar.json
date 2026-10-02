@@ -1,0 +1,8 @@
+{
+  "navItems": [
+    { "label": "文章", "url": "/posts", "external": false },
+    { "label": "标签", "url": "/tags", "external": false },
+    { "label": "关于我 / 服务", "url": "/about", "external": false },
+    { "label": "搜索", "url": "/search", "external": false }
+  ]
+}
