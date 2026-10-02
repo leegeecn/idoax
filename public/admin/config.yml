@@ -9,6 +9,19 @@ media_folder: "public/assets/blog"
 public_folder: "/assets/blog"
 
 collections:
+  - name: "settings"
+    label: "页面设置"
+    delete: false
+    files:
+      - name: "homepage"
+        label: "首页信息配置"
+        file: "src/content/homepage.json"
+        fields:
+          - { label: "首页大标题 (Hero Title)", name: "heroTitle", widget: "string", default: "Ming's Blog" }
+          - { label: "副标题 / 欢迎语", name: "heroSubtitle", widget: "string", default: "分享技术、生活与思考" }
+          - { label: "个人介绍 (支持 Markdown 排版)", name: "heroDescription", widget: "markdown" }
+          - { label: "显示 RSS 订阅图标", name: "showRssLink", widget: "boolean", default: true }
+
   - name: "posts"
     label: "文章管理"
     folder: "src/content/posts"
