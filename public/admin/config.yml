@@ -10,17 +10,67 @@ public_folder: "/assets/blog"
 
 collections:
   - name: "settings"
-    label: "页面设置"
+    label: "一人公司 IP 全站配置"
     delete: false
     files:
+      # 1. 品牌与全站基础设置
+      - name: "site"
+        label: "品牌与站点设置 (Brand & Logo)"
+        file: "src/content/site.json"
+        fields:
+          - { label: "品牌 / IP 名字", name: "brandName", widget: "string", default: "IDOAX" }
+          - { label: "全站 Slogan (口号)", name: "slogan", widget: "string", default: "一人公司实践者 · 专注数字内容与技术沉淀" }
+          - { label: "品牌 Logo 图片 (可选，留空显示文字 Logo)", name: "logoUrl", widget: "image", required: false }
+
+      # 2. 首页 Hero 与服务展示设置
       - name: "homepage"
-        label: "首页信息配置"
+        label: "首页品牌与服务展示"
         file: "src/content/homepage.json"
         fields:
-          - { label: "首页大标题 (Hero Title)", name: "heroTitle", widget: "string", default: "Ming's Blog" }
-          - { label: "副标题 / 欢迎语", name: "heroSubtitle", widget: "string", default: "分享技术、生活与思考" }
-          - { label: "个人介绍 (支持 Markdown 排版)", name: "heroDescription", widget: "markdown" }
-          - { label: "显示 RSS 订阅图标", name: "showRssLink", widget: "boolean", default: true }
+          - { label: "首页大标题 (Hero Title)", name: "heroTitle", widget: "string", default: "你好，我是 明 (IDOAX)" }
+          - { label: "首页副标题", name: "heroSubtitle", widget: "string", default: "用技术与思考，打造独立高效的数字资产" }
+          - { label: "个人 / 品牌介绍 (支持 Markdown)", name: "heroDescription", widget: "markdown" }
+          - { label: "CTA 按钮文字 (行动号召)", name: "ctaText", widget: "string", default: "了解我的服务" }
+          - { label: "CTA 按钮链接", name: "ctaLink", widget: "string", default: "/services" }
+          - label: "一人公司服务 / 产品卡片列表"
+            name: "services"
+            widget: "list"
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "服务/产品名称", name: "title", widget: "string" }
+              - { label: "简短描述", name: "description", widget: "text" }
+              - { label: "跳转链接", name: "link", widget: "string", required: false }
+
+      # 3. 顶部导航栏设置
+      - name: "navbar"
+        label: "顶部导航栏设置"
+        file: "src/content/navbar.json"
+        fields:
+          - label: "导航菜单列表"
+            name: "navItems"
+            widget: "list"
+            summary: "{{fields.label}} ({{fields.url}})"
+            fields:
+              - { label: "显示名称", name: "label", widget: "string" }
+              - { label: "跳转链接 (URL)", name: "url", widget: "string" }
+              - { label: "在新标签页打开", name: "external", widget: "boolean", default: false, required: false }
+
+      # 4. 页脚设置
+      - name: "footer"
+        label: "页脚信息设置"
+        file: "src/content/footer.json"
+        fields:
+          - { label: "版权说明文字", name: "copyright", widget: "string", default: "© 2026 IDOAX. All rights reserved." }
+          - { label: "ICP 备案号 / 补充说明", name: "icpText", widget: "string", required: false }
+          - label: "页脚社交矩阵外链"
+            name: "socialLinks"
+            widget: "list"
+            required: false
+            summary: "{{fields.platform}} ({{fields.url}})"
+            fields:
+              - { label: "平台名称", name: "platform", widget: "string" }
+              - { label: "跳转链接", name: "url", widget: "string" }
 
   - name: "posts"
     label: "文章管理"
