@@ -8,7 +8,7 @@ export default defineAstroPaperConfig({
     author: "IDOAX",
     profile: "https://www.idoax.com/about",
     ogImage: "default-og.jpg",
-    lang: "zh-CN",
+    lang: "zh",
     timezone: "Asia/Shanghai",
     dir: "ltr",
   },
