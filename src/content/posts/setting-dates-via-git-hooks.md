@@ -5,7 +5,7 @@ pubDatetime: 2026-10-03T14:42:00.000+08:00
 description: 作为父亲，我送给 11 岁的浩然与 7 岁的欣然一份特殊的礼物——一个独立、安全且能传承一生的数字成长城堡。
 postSlug: about
 draft: false
-featured: false
+featured: true
 tags:
   - about
 canonicalURL: https://smale.codes/posts/setting-dates-via-git-hooks/
