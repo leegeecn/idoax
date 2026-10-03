@@ -6,7 +6,7 @@ description: 在科技如此发达的时代，我们家如何通过亲子阅读�
 postSlug: haoran
 draft: false
 slug: dynamic-og-image-generation-in-astropaper-blog-posts
-featured: false
+featured: true
 tags:
   - '"亲子阅读"'
   - '"深度专注"'
