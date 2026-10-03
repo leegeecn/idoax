@@ -1,18 +1,18 @@
 {
-  "heroTitle": "你好，我是 明 (IDOAX)",
-  "heroSubtitle": "用技术与思考，打造独立高效的数字资产",
-  "heroDescription": "欢迎来到我的个人品牌阵地！这里记录我作为一个一人公司实践者的思考、个人项目以及探索出的高价值商业经验。",
-  "ctaText": "了解我的服务",
-  "ctaLink": "/about",
+  "heroTitle": "i do · ax",
+  "heroSubtitle": "Empowering Lifetime Legacies. Since 2026.",
+  "heroDescription": "\\*\\*i do = 我能\\*\\* —— 这是我作为父母对两个孩子的承诺。\n\n\n\n\\*\\*a · 浩然（Howard）\\*\\* —— 坚固的拱门，哥哥的守护。\n\n\n\n\\*\\*x · 欣然（Sienna）\\*\\* —— 灵动的双弧，妹妹的探索。\n\n\n\n这里是他们的成长空间，也是家族数字资产的起点。",
+  "ctaText": "读成长日志",
+  "ctaLink": "/posts",
   "services": [
     {
-      "title": "数字产品与技术咨询",
-      "description": "提供极简高效的独立建站、SEO 优化与云端部署方案。",
-      "link": "/about"
+      "title": "a · 浩然的成长档案",
+      "description": "记录哥哥从童年到独立的成长轨迹，一个家族支柱的养成过程。",
+      "link": "/posts"
     },
     {
-      "title": "个人 IP 内容专栏",
-      "description": "分享商业思考、个人成长与一人公司高效工具链。",
+      "title": "x · 欣然的探索记录",
+      "description": "记录妹妹灵动、自由的成长历程，探索无限可能的每一步。",
       "link": "/posts"
     }
   ]
