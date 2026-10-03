@@ -48,11 +48,12 @@ const homePath = getRelativeLocaleUrl(locale, "");
         </p>
       )}
 
-      {homepageData.heroDescription && (
-        <div class="prose mx-auto my-6 max-w-2xl text-skin-base/90">
-          set:html={homepageData.heroDescription}
-        </div>
-      )}
+   {homepageData.heroDescription && (
+  <div 
+    class="prose mx-auto my-6 max-w-2xl text-skin-base/90" 
+    set:html={homepageData.heroDescription}
+  />
+   )}
 
       {homepageData.ctaText && homepageData.ctaLink && (
         <div class="mt-8">
