@@ -8,7 +8,7 @@ draft: false
 slug: how-to-integrate-giscus-comments
 featured: false
 tags:
-  - 'xinran'，
+  - '"xinran"'
   - "欣然艺术集"
   - '"创意与灵感"'
   - '"儿童绘画"'
