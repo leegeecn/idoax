@@ -1,21 +1,18 @@
 ---
 import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
-import Socials from "@/components/Socials.astro";
 import Card from "@/components/Card.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 import homepageData from "../content/homepage.json";
-// ... 保持 index.astro 现有的其他 import 和代码不动 ...
 
-const { socials, posts: postsConfig } = config;
+const { posts: postsConfig } = config;
 
 const locale = Astro.currentLocale ?? config.site.lang;
 const t = useTranslations(locale);
@@ -35,84 +32,205 @@ const homePath = getRelativeLocaleUrl(locale, "");
     data-home-path={homePath}
     class="app-layout my-1"
   >
-<section id="hero" class="pt-8 pb-6">
-  <h1 class="text-3xl font-bold sm:text-5xl">{homepageData.heroTitle}</h1>
-  {homepageData.heroSubtitle && (
-    <p class="my-2 text-xl text-skin-accent font-medium">{homepageData.heroSubtitle}</p>
-  )}
-  
-  <div class="prose my-4">
-    {homepageData.heroDescription}
-  </div>
-
-  <!-- 行动号召 CTA 按钮 -->
-  {homepageData.ctaText && (
-    <div class="mt-6">
-      <a 
-        href={homepageData.ctaLink} 
-        class="inline-block bg-skin-accent text-skin-inverted px-5 py-2.5 rounded-lg font-medium shadow hover:opacity-90 transition"
-      >
-        {homepageData.ctaText}
-      </a>
-    </div>
-  )}
-
-  <!-- 一人公司服务 / 核心业务列表展示 -->
-  {homepageData.services && homepageData.services.length > 0 && (
-    <div class="mt-10 border-t border-skin-line pt-6">
-      <h2 class="text-xl font-semibold mb-4">核心服务与业务</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {homepageData.services.map((service) => (
-          <div class="p-4 rounded-lg border border-skin-line bg-skin-card hover:border-skin-accent transition">
-            <h3 class="font-bold text-lg mb-1">{service.title}</h3>
-            <p class="text-sm opacity-80 mb-3">{service.description}</p>
-            {service.link && (
-              <a href={service.link} class="text-xs text-skin-accent underline font-medium">
-                了解更多 →
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  )}
-</section>
-
-    {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-12 pb-6",
-            { "border-border border-b": recentPosts.length > 0 },
-          ]}
+    <!-- ========== 1. HERO：品牌主区 ========== -->
+    <section id="hero" class="pt-6 pb-10 text-center sm:pt-10">
+      <h1 class="text-5xl font-extrabold tracking-tight sm:text-7xl">
+        <span class="text-skin-base">i do</span><span
+          class="bg-gradient-to-br from-[#B87A4E] via-[#D69E6B] to-[#E8BE92] bg-clip-text text-transparent"
+          >ax</span
         >
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.featured}
-          </h2>
-          <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+      </h1>
 
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">
-            {t.home.recentPosts}
-          </h2>
-          <ul>
-            {recentPosts.slice(0, postsConfig.perIndex).map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+      {homepageData.heroSubtitle && (
+        <p class="mt-4 text-lg font-medium text-skin-accent sm:text-2xl">
+          {homepageData.heroSubtitle}
+        </p>
+      )}
+
+      {homepageData.heroDescription && (
+        <div class="prose mx-auto my-6 max-w-2xl text-skin-base/90">
+          {homepageData.heroDescription}
+        </div>
+      )}
+
+      {homepageData.ctaText && homepageData.ctaLink && (
+        <div class="mt-8">
+          <a
+            href={homepageData.ctaLink}
+            class="inline-block rounded-full bg-skin-accent px-7 py-3 font-medium text-skin-inverted shadow-lg transition hover:-translate-y-0.5 hover:opacity-95"
+          >
+            {homepageData.ctaText}
+          </a>
+        </div>
+      )}
+    </section>
+
+    <!-- ========== 2. 字母寓意：a & x 双卡片 ========== -->
+    <section id="meaning" class="mx-auto my-8 max-w-5xl">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div
+          class="group rounded-3xl border border-skin-line bg-skin-card p-6 transition hover:-translate-y-1 hover:border-skin-accent hover:shadow-xl"
+        >
+          <div
+            class="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fefcf9] to-[#f7ede0] shadow-inner"
+          >
+            <svg viewBox="0 0 60 60" class="h-12 w-12" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="archGrad" x1="10" y1="30" x2="50" y2="54" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#B87A4E" />
+                  <stop offset="100%" stop-color="#D69E6B" />
+                </linearGradient>
+              </defs>
+              <rect x="10" y="28" width="9" height="26" rx="4" fill="url(#archGrad)" />
+              <rect x="41" y="28" width="9" height="26" rx="4" fill="url(#archGrad)" />
+              <path
+                d="M14.5 30 C14.5 14, 45.5 14, 45.5 30"
+                stroke="url(#archGrad)"
+                stroke-width="9"
+                stroke-linecap="round"
+                fill="none"
+              />
+              <rect x="25" y="37" width="10" height="5" rx="2.5" fill="#E0B88C" />
+            </svg>
+          </div>
+          <div class="text-2xl font-bold text-skin-base">a · Howard</div>
+          <div class="mb-2 text-sm font-medium uppercase tracking-wider text-skin-accent">
+            浩然 · 哥哥
+          </div>
+          <p class="text-sm leading-relaxed text-skin-base/80">
+            坚固、平稳的垂直拱门结构，象征哥哥作为家族支柱的稳重与守护。
+          </p>
+        </div>
+
+        <div
+          class="group rounded-3xl border border-skin-line bg-skin-card p-6 transition hover:-translate-y-1 hover:border-skin-accent hover:shadow-xl"
+        >
+          <div
+            class="mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fefcf9] to-[#f7ede0] shadow-inner"
+          >
+            <svg viewBox="0 0 60 60" class="h-12 w-12" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="xGrad1" x1="8" y1="50" x2="30" y2="12" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#C8874E" />
+                  <stop offset="100%" stop-color="#E8BE92" />
+                </linearGradient>
+                <linearGradient id="xGrad2" x1="8" y1="12" x2="52" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#D69E6B" />
+                  <stop offset="100%" stop-color="#F0D4B0" />
+                </linearGradient>
+              </defs>
+              <path
+                d="M8 50 Q18 30, 30 12 Q42 30, 52 50"
+                stroke="url(#xGrad1)"
+                stroke-width="7"
+                stroke-linecap="round"
+                fill="none"
+              />
+              <path
+                d="M8 12 Q18 30, 30 48 Q42 30, 52 12"
+                stroke="url(#xGrad2)"
+                stroke-width="7"
+                stroke-linecap="round"
+                fill="none"
+              />
+              <circle cx="30" cy="30" r="3.5" fill="#8A5E3C" />
+              <circle cx="30" cy="30" r="1.5" fill="#FFFFFF" opacity="0.85" />
+            </svg>
+          </div>
+          <div class="text-2xl font-bold text-skin-base">x · Sienna</div>
+          <div class="mb-2 text-sm font-medium uppercase tracking-wider text-skin-accent">
+            欣然 · 妹妹
+          </div>
+          <p class="text-sm leading-relaxed text-skin-base/80">
+            向上延伸、开放流动的双弧线结构，象征妹妹灵动、探索与无限的可能性。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. 服务卡片（CMS 可编辑） ========== -->
+    {homepageData.services && homepageData.services.length > 0 && (
+      <section id="services" class="mx-auto my-10 max-w-5xl border-t border-skin-line pt-10">
+        <h2 class="mb-6 text-center text-2xl font-semibold tracking-wide">
+          关于 idoax
+        </h2>
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {homepageData.services.map(service => (
+            <div class="rounded-2xl border border-skin-line bg-skin-card p-5 transition hover:border-skin-accent hover:shadow-lg">
+              <h3 class="mb-2 text-lg font-bold text-skin-base">{service.title}</h3>
+              <p class="mb-3 text-sm leading-relaxed text-skin-base/80">{service.description}</p>
+              {service.link && (
+                <a href={service.link} class="text-xs font-medium text-skin-accent underline">
+                  了解更多 →
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ========== 4. 三条品牌标语（固定内容，不走 CMS） ========== -->
+    <section id="slogans" class="mx-auto my-12 max-w-4xl">
+      <div class="space-y-4">
+        <div class="rounded-2xl border border-skin-line bg-gradient-to-r from-[#fefcf9] to-[#faf4ec] p-6 text-center">
+          <div class="text-sm font-semibold uppercase tracking-widest text-skin-accent">
+            Childhood & Family
+          </div>
+          <div class="mt-2 text-xl font-bold text-skin-base">
+            I do love, I do support, I do believe.
+          </div>
+          <div class="mt-1 text-sm text-skin-base/70">
+            爱其所爱，予其所向，信其无限。
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-skin-line bg-gradient-to-r from-[#fefcf9] to-[#f6f1ea] p-6 text-center">
+          <div class="text-sm font-semibold uppercase tracking-widest text-skin-accent">
+            Professional / Future
+          </div>
+          <div class="mt-2 text-xl font-bold text-skin-base">
+            Where Passion Meets Infinite Possibilities.
+          </div>
+          <div class="mt-1 text-sm text-skin-base/70">
+            激情所至，无限可能。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. 成长日志（Featured + Recent） ========== -->
+    {featuredPosts.length > 0 && (
+      <section
+        id="featured"
+        class:list={[
+          "pt-8 pb-6",
+          { "border-border border-b": recentPosts.length > 0 },
+        ]}
+      >
+        <h2 class="text-2xl font-semibold tracking-wide">
+          {t.home.featured}
+        </h2>
+        <ul>
+          {featuredPosts.map(data => (
+            <Card variant="h3" {...data} />
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {recentPosts.length > 0 && (
+      <section id="recent-posts" class="pt-12 pb-6">
+        <h2 class="text-2xl font-semibold tracking-wide">
+          {t.home.recentPosts}
+        </h2>
+        <ul>
+          {recentPosts.slice(0, postsConfig.perIndex).map(data => (
+            <Card variant="h3" {...data} />
+          ))}
+        </ul>
+      </section>
+    )}
 
     <div class="my-8 text-center">
       <LinkButton href={getRelativeLocaleUrl(locale, "posts")}>
