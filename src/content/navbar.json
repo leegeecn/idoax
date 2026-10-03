@@ -1,24 +1,29 @@
 {
   "navItems": [
     {
-      "label": "文章",
-      "url": "/posts",
+      "label": "首页",
+      "url": "/",
       "external": false
     },
     {
-      "label": "标签",
-      "url": "/tags",
+      "label": "浩然",
+      "url": "/tags/haoran",
       "external": false
     },
     {
-      "label": "关于我们",
+      "label": "欣然",
+      "url": "/tags/xinran",
+      "external": false
+    },
+    {
+      "label": "关于",
       "url": "/about",
       "external": false
     },
     {
+      "external": false,
       "label": "搜索",
-      "url": "/search",
-      "external": false
+      "url": "/search"
     }
   ]
 }
