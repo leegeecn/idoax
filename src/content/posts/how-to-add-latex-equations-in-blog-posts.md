@@ -5,7 +5,7 @@ pubDatetime: 2026-10-03T14:46:00.000+08:00
 description: 记录兄妹俩在睡前的温馨对话，五年级的哥哥与二年级的妹妹是如何在互补中共同生长的。
 postSlug: ours
 draft: false
-featured: false
+featured: true
 tags:
   - '"兄妹日常"'
   - '"家庭教育"'
