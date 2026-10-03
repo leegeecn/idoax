@@ -1,37 +1,66 @@
 ---
-title: "About"
-description: "A bit about me and this blog."
+title: "关于 idoax：一个家族数字资产与一人公司的起点"
+author: "明 (IDOAX)"
+pubDatetime: 2026-10-03T15:00:00Z
+description: "解读 idoax 的品牌精神、字母架构与家族初心——写给浩然（11岁）、欣然（7岁）与每一位同行者的品牌故事。"
+featured: true
+tags: ["品牌故事", "家族数字资产", "一人公司", "浩然成长录", "欣然艺术集"]
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+### 品牌初心：为生命与时间建立“数字城堡”
 
-![Astro Paper](@/assets/images/astropaper-og.jpg)
+在 2026 年的今天，互联网充满了瞬息万变的信息流与算法推流。作为一名“一人公司（One-Person Business）”的实践者，我常常在思考一个终极问题：**在这个极速变化的时代，我们能为家人与未来留下什么真正不受时间侵蚀的资产？**
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+`idoax` 便是这个思考的终极答案。
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+它不仅是一个展示技术与商业思考的个人 IP 阵地，更是一个具有结构感、生长力与温度的**家族数字信托空间**。在这里，我记录独立探索的思考，更记录两个孩子——11 岁的浩然与 7 岁的欣然——在生命早期最珍贵的成长里程碑。
 
-## Features
+---
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+### 品牌命名与视觉寓意
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+`idoax` 这个名字由三个核心元素融合而成，每一个字母都承载着深刻的承载与期许：
 
-and so much more.
+i do  +  a  +  x  =  idoax
+#### 1. `i do` —— 守护与承诺
+“I do.”（我愿意 / 我能）—— 这是作为父母对孩子一生的坚定支持与无条件关爱。它代表着一种主动创造、承担责任与相信未来的生活态度。
 
-## Show your support
+#### 2. `a` · 浩然 (Howard) —— 拱门与守卫
+* **背景**：11 岁，五年级。
+* **结构**：`a` 代表平稳、坚固的**垂直拱门结构（Arch）**。
+* **寓意**：象征哥哥浩然作为长子的稳重、逻辑感与秩序感。他是家族数字城堡里坚固的支柱，为妹妹的探索提供最可靠的防护。
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
+#### 3. `x` · 欣然 (Sienna) —— 双弧与自由
+* **背景**：7 岁，二年级。
+* **结构**：`x` 代表向上延伸、开放流动的**交叉双弧线（X-curve）**。
+* **寓意**：象征妹妹欣然的灵动、艺术直觉与无限可能性。她用色彩与欢笑打破沉闷，为全家注入无拘无束的生命力。
 
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
+---
 
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
+### 全站三大核心板块
 
-Kyay zuu! 🙏🏼
+在 `idoax` 的空间里，内容由三大互相滋养的支柱构成：
+
+1. **浩然成长录（11岁 / 五年级）**：记录哥哥的乐高架构、科学小实验、逻辑思考与阅读历程，沉淀工科与工程思维。
+2. **欣然艺术集（7岁 / 二年级）**：保存妹妹的色彩画作、钢琴弹奏、灵感闪光点与童趣对话，守护艺术与表达的纯真。
+3. **一人公司与数字资产思考**：分享独立建站、内容创作、个人 IP 打造以及商业哲学的实战沉淀，示范“身教胜于言传”的探索历程。
+
+---
+
+### 我们的品牌口号 (Slogan)
+
+> **Childhood & Family**  
+> *I do love, I do support, I do believe.*  
+> （爱其所爱，予其所向，信其无限。）
+
+> **Professional & Future**  
+> *Where Passion Meets Infinite Possibilities.*  
+> （激情所至，无限可能。）
+
+---
+
+### 结语
+
+`idoax` 记录的是童年，沉淀的是时间，打造的是未来。
+
+感谢你来到这里，与我们一同见证一个家族数字资产的生长与绽放。无论你是对一人公司实践感兴趣的同行者，还是关注儿童成长与深度教育的朋友，都欢迎在这片暖白与墨绿交织的“草木空间”里，找到属于你的启发。
