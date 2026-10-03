@@ -1,30 +1,43 @@
 ---
-import type { HTMLAttributes } from "astro/types";
-import Socials from "./Socials.astro";
-import { useTranslations } from "@/i18n";
+import footerData from "../content/footer.json";
+import siteData from "../content/site.json";
 
-type Props = {
+// 接收外部传入的 class 属性（如有）
+export interface Props {
   noMarginTop?: boolean;
-} & HTMLAttributes<"footer">;
+}
 
-const { noMarginTop = false, class: className, ...attrs } = Astro.props;
-
-const t = useTranslations(Astro.currentLocale);
-const currentYear = new Date().getFullYear();
+const { noMarginTop = false } = Astro.props;
 ---
 
-<footer
-  class:list={["app-layout", { "mt-auto": !noMarginTop }, className]}
-  {...attrs}
->
-  <div
-    class="border-border flex flex-col items-center justify-between border-t py-6 sm:flex-row-reverse sm:py-4"
-  >
-    <Socials />
-    <div class="my-2 flex flex-col items-center whitespace-nowrap sm:flex-row">
-      <span>{t.footer.copyright} &#169; {currentYear}</span>
-      <span class="hidden sm:inline">&nbsp;|&nbsp;</span>
-      <span>{t.footer.allRightsReserved}</span>
+<footer class:list={["w-full", { "mt-auto": !noMarginTop }]}>
+  <div class="mx-auto max-w-5xl px-4 py-8 border-t border-skin-line">
+    <div class="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+      
+      <!-- 左侧：动态版权文案 & ICP 备案号 -->
+      <div class="text-sm text-skin-base/80 space-y-1">
+        <p>{footerData.copyright || `© ${new Date().getFullYear()} ${siteData.brandName || 'IDOAX'}. All rights reserved.`}</p>
+        
+        {footerData.icpText && (
+          <p class="text-xs text-skin-base/60">{footerData.icpText}</p>
+        )}
+      </div>
+
+      <!-- 右侧：后台配置的社交矩阵 / 自定义外链 -->
+      {footerData.socialLinks && footerData.socialLinks.length > 0 && (
+        <div class="flex flex-wrap items-center justify-center gap-4 text-sm font-medium">
+          {footerData.socialLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-skin-base/80 hover:text-skin-accent transition-colors underline-offset-4 hover:underline"
+            >
+              {link.platform}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 </footer>
