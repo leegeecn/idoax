@@ -9,7 +9,7 @@ description: 记录浩然在五年级搭建复杂乐高与逻辑思考的过程�
 postSlug: haoran
 featured: false
 tags:
-  - haoran，
+  - haoran
   - 浩然成长录
   - '逻辑思考'
   - '乐高与架构'
