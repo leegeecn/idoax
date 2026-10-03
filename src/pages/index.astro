@@ -11,6 +11,9 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 import homepageData from "../content/homepage.json";
+import { marked } from "marked";
+
+const heroHtml = marked.parse(homepageData.heroDescription || "");
 
 const { posts: postsConfig } = config;
 
@@ -49,7 +52,7 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
       {homepageData.heroDescription && (
         <div class="prose mx-auto my-6 max-w-2xl text-skin-base/90">
-          {homepageData.heroDescription}
+          set:html={heroHtml}
         </div>
       )}
 
