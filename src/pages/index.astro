@@ -261,25 +261,45 @@ const homePath = getRelativeLocaleUrl(locale, "");
 <!-- 1. 引入 Waline CDN 样式 -->
 <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
 
-<!-- 2. 通过 CDN 引入 Waline SDK 脚本（加上 is:inline 避开 npm 依赖检查） -->
+<!-- 2. 通过 CDN 引入 Waline 客户端 JS -->
 <script is:inline src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
 
-<!-- 3. 初始化脚本 -->
+<!-- 3. 保底初始脚本 -->
 <script is:inline>
-  document.addEventListener('astro:page-load', () => {
-    // 确保 CDN 加载的 Waline 对象存在
-    if (window.Waline && document.querySelector('#waline-container')) {
-      window.Waline.init({
-        el: '#waline-container',
-        serverURL: 'https://waline-on-worker.pubyou2001.workers.dev',
-        lang: 'zh-CN',
-        pageview: true,
-        comment: true,
-        reaction: true,
-        dark: 'html[data-theme="dark"]',
-      });
+  function initWalineBoard() {
+    const container = document.getElementById('waline-container');
+    if (!container) return;
+
+    // 如果 JS 还没加载完，等待 100ms 重试
+    if (typeof window.Waline === 'undefined' || typeof window.Waline.init !== 'function') {
+      setTimeout(initWalineBoard, 100);
+      return;
     }
-  });
+
+    // 防止重复初始化
+    if (container.hasAttribute('data-waline-inited')) return;
+    container.setAttribute('data-waline-inited', 'true');
+
+    window.Waline.init({
+      el: '#waline-container',
+      serverURL: 'https://waline-on-worker.pubyou2001.workers.dev',
+      lang: 'zh-CN',
+      pageview: true,
+      comment: true,
+      reaction: true,
+      dark: 'html[data-theme="dark"]',
+    });
+  }
+
+  // 1. 静态普通加载保底
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    initWalineBoard();
+  } else {
+    document.addEventListener('DOMContentLoaded', initWalineBoard);
+  }
+
+  // 2. Astro View Transitions 切换页面保底
+  document.addEventListener('astro:page-load', initWalineBoard);
 </script>
 
 <style is:global>
