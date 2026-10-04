@@ -95,6 +95,25 @@ if (themeConfig.preset === "custom") {
 }
 ---
 
+
+---
+
+<!doctype html>
+<html
+  dir={site.dir ?? "ltr"}
+  lang={Astro.currentLocale ?? site.lang}
+  class="overflow-y-scroll scroll-smooth"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
+    <link rel="icon" href={getAssetPath("favicon.ico")} />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
+    <meta name="generator" content={Astro.generator} />
 <style is:inline define:vars={{
   lightFill,
   lightText,
@@ -115,25 +134,6 @@ if (themeConfig.preset === "custom") {
     --color-accent: var(--darkAccent);
   }
 </style>
----
-
-<!doctype html>
-<html
-  dir={site.dir ?? "ltr"}
-  lang={Astro.currentLocale ?? site.lang}
-  class="overflow-y-scroll scroll-smooth"
->
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
-    <link rel="icon" href={getAssetPath("favicon.ico")} />
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
-    <meta name="generator" content={Astro.generator} />
-
     <!-- Font -->
     <Font
       cssVariable="--font-google-sans-code"
