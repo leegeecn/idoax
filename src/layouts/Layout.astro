@@ -123,15 +123,22 @@ if (themeConfig.preset === "custom") {
   darkAccent,
 }}>
   :root {
-    --color-fill: var(--lightFill);
-    --color-text-base: var(--lightText);
-    --color-accent: var(--lightAccent);
+    --color-fill: rgb(var(--lightFill));
+    --color-text-base: rgb(var(--lightText));
+    --color-accent: rgb(var(--lightAccent));
   }
 
-  html[data-theme="dark"] {
-    --color-fill: var(--darkFill);
-    --color-text-base: var(--darkText);
-    --color-accent: var(--darkAccent);
+  html[data-theme="dark"],
+  html.dark {
+    --color-fill: rgb(var(--darkFill));
+    --color-text-base: rgb(var(--darkText));
+    --color-accent: rgb(var(--darkAccent));
+  }
+
+  /* 强行保障全局背景和文字颜色使用注入的主题色 */
+  body {
+    background-color: var(--color-fill) !important;
+    color: var(--color-text-base) !important;
   }
 </style>
     <!-- Font -->
