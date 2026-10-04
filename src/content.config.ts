@@ -34,4 +34,19 @@ const pages = defineCollection({
   }),
 });
 
-export const collections = { posts, pages };
+// 📸 孩子们的影像地带 (Gallery) 集合定义
+const gallery = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.{json,md}", base: "./src/content/gallery" }),
+  schema: z.object({
+    title: z.string(),
+    type: z.enum(["image", "video"]).default("image"),
+    mediaUrl: z.string(),
+    posterUrl: z.string().optional(),
+    child: z.enum(["haoran", "xinran", "family"]).default("family"),
+    date: z.date().or(z.string()),
+    location: z.string().optional(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { posts, pages, gallery };
