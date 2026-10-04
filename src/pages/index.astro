@@ -240,7 +240,59 @@ const homePath = getRelativeLocaleUrl(locale, "");
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
+<!-- 3D 全球访客地图挂件 -->
+<section class="mt-12 py-6 bg-slate-50 dark:bg-slate-800/40 rounded-2xl text-center">
+  <h2 class="text-xl font-bold mb-4">🌍 全球访客足迹</h2>
+  <div class="flex justify-center items-center">
+    <!-- 请替换为你实际的 RevolverMaps 代码 -->
+    <script src="https://revolvermaps2.com/embed.js" data-site="tjmdu4e9wzge" data-size="400" data-theme="night" data-color="ffb23f" async></script>
+  </div>
+</section>
+
+<!-- 全球祝福与留言墙区 -->
+<section class="mt-10 mb-16">
+  <h2 class="text-2xl font-bold text-center mb-2">🌟 留言与祝福墙</h2>
+  <p class="text-center text-sm text-gray-500 mb-8">无需登录，自动记录城市足迹，欢迎在此留下一句问候！</p>
+
+  <!-- Waline 渲染挂载点 -->
+  <div id="waline-container"></div>
+</section>
+
+<!-- 引入 Waline 基础样式表 -->
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+
+<!-- 初始化 Waline JS 脚本 -->
+<script>
+  import { init } from '@waline/client';
+
+  function setupWaline() {
+    const container = document.querySelector('#waline-container');
+    if (!container) return;
+
+    init({
+      el: '#waline-container',
+      serverURL: 'https://waline-on-worker.pubyou2001.workers.dev',
+      lang: 'zh-CN',
+      pageview: true,
+      comment: true,
+      reaction: true,
+      dark: 'html[data-theme="dark"]',
+    });
+  }
+
+  // 兼容 Astro 视图过渡（View Transitions）与页面初次加载
+  document.addEventListener('astro:page-load', setupWaline);
+</script>
+
+<style is:global>
+  /* 调整 Waline 的 CSS 样式以契合 IDOAX 主题 */
+  :root {
+    --waline-theme-color: #4f46e5;
+    --waline-active-color: #4338ca;
+  }
+</style>
   </main>
+
   <Footer />
 </Layout>
 
