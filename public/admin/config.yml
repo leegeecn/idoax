@@ -97,7 +97,22 @@ collections:
           - { label: "【自定义-深色】页面背景色", name: "customDarkFill", widget: "color", default: "#1C1A18", required: false }
           - { label: "【自定义-深色】文字颜色", name: "customDarkText", widget: "color", default: "#F0ECE6", required: false }
           - { label: "【自定义-深色】主题高亮色", name: "customDarkAccent", widget: "color", default: "#F59E0B", required: false }
-
+ # 5. 影像地带
+    - name: "gallery"
+    label: "孩子们的影像地带"
+    folder: "src/content/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - { label: "媒体类型", name: "type", widget: "select", options: [{label: "🖼️ 图片", value: "image"}, {label: "🎥 视频", value: "video"}], default: "image" }
+      - { label: "Cloudflare 图床/视频 URL", name: "mediaUrl", widget: "string", hint: "例如：https://img.idoax.com/haoran/2026/01.jpg 或 mp4 视频链接" }
+      - { label: "视频封面图 (仅视频类型填，可选)", name: "posterUrl", widget: "string", required: false, hint: "例如：https://img.idoax.com/haoran/2026/01-cover.jpg" }
+      - { label: "主角专区", name: "child", widget: "select", options: [{label: "浩然", value: "haoran"}, {label: "欣然", value: "xinran"}, {label: "合照/家庭", value: "family"}], default: "family" }
+      - { label: "拍摄日期", name: "date", widget: "datetime", format: "YYYY-MM-DD", dateFormat: "YYYY-MM-DD", timeFormat: false }
+      - { label: "拍摄地点/活动", name: "location", widget: "string", required: false }
+      - { label: "成长温馨描述/感言", name: "description", widget: "text", required: false, hint: "支持多行文字，前台展示时带淡入渐出动画" }
+  
   - name: "posts"
     label: "文章管理"
     folder: "src/content/posts"
