@@ -1,0 +1,91 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+// 整理后的开源小游戏列表
+const games = [
+  {
+    title: "吃豆人 (Pacman)",
+    url: "https://passer-by.com/pacman/",
+    author: "mumuy",
+    desc: "1980年经典街机游戏，使用 HTML+JS 还原，包含 12 个关卡。"
+  },
+  {
+    title: "俄罗斯方块 (React Tetris)",
+    url: "https://chvin.github.io/react-tetris/?lan=zh",
+    author: "chvin",
+    desc: "掌机时代的童年回忆，React 完美的掌机按键模拟。"
+  },
+  {
+    title: "坦克大战 (Battle City)",
+    url: "https://battle-city.js.org/#/",
+    author: "shinima",
+    desc: "FC 经典策略射击游戏，高度还原音效、画面与地图。"
+  },
+  {
+    title: "2048 益智数字",
+    url: "https://play2048.co/",
+    author: "gabrielecirulli",
+    desc: "风靡全球的数字滑动合并益智游戏，简单却极其虐心。"
+  },
+  {
+    title: "贪吃蛇 (Snake Game)",
+    url: "https://rabiroshan.github.io/snake_game/",
+    author: "RabiRoshan",
+    desc: "诺基亚时代的传奇游戏，经典的规则与全新现代界面。"
+  },
+  {
+    title: "滑动数字拼图 (Sliding Puzzle)",
+    url: "https://www.sandeepnambiar.com/sliding_puzzle/",
+    author: "gamedolphin",
+    desc: "类似华容道与经典拼图的玩法，考验逻辑与数理推演。"
+  }
+];
+---
+
+<Layout title="益智游戏厅 - IDOAX">
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <!-- 返回首页链接 -->
+    <div class="mb-6">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent transition-colors group"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:-translate-x-1">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        返回首页
+      </a>
+    </div>
+
+    <header class="mb-10 text-center">
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">🎮 开源益智游戏厅</h1>
+      <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+        精选 GitHub 上有趣的开源小游戏，致敬经典，随时随地放松一下。
+      </p>
+    </header>
+
+    <!-- 游戏卡片网格 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {games.map((game) => (
+        <div class="flex flex-col justify-between rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div>
+            <h3 class="text-xl font-semibold mb-2">{game.title}</h3>
+            <p class="text-xs text-gray-400 mb-3">作者: @{game.author}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+              {game.desc}
+            </p>
+          </div>
+          <a
+            href={game.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-accent text-white font-medium hover:opacity-90 transition-opacity"
+          >
+            开始游玩 🎮
+          </a>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
