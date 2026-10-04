@@ -21,6 +21,11 @@
       "url": "/gallery"
     },
     {
+      "external": false,
+      "label": "益智游戏",
+      "url": "/games"
+    },
+    {
       "label": "关于",
       "url": "/about",
       "external": false
