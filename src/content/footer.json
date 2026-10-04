@@ -9,6 +9,10 @@
     {
       "platform": "RSS",
       "url": "/rss.xml"
+    },
+    {
+      "platform": "邮箱(admin@idoax.com)",
+      "url": "mailto:admin@idoax.com"
     }
   ]
 }
