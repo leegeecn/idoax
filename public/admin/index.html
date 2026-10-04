@@ -3,10 +3,102 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IDOAX.COM 后台管理</title>
+    <title>idoax.com 后台管理</title>
   </head>
   <body>
-    <!-- 加载最成熟稳定的 Decap CMS 引擎 -->
+    <!-- Decap CMS 挂载点与脚本 -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // 1. 定义预设配色方案的 HEX 值对照表
+      const PRESET_COLORS = {
+        warm: {
+          customLightFill: "#FEFCF8",
+          customLightText: "#2D2A26",
+          customLightAccent: "#E07020",
+          customDarkFill: "#1C1A18",
+          customDarkText: "#F0ECE6",
+          customDarkAccent: "#F59E0B",
+        },
+        forest: {
+          customLightFill: "#FAFCFA",
+          customLightText: "#212B26",
+          customLightAccent: "#108A5C",
+          customDarkFill: "#121C18",
+          customDarkText: "#EBF5F0",
+          customDarkAccent: "#34D399",
+        },
+        ocean: {
+          customLightFill: "#FAFAFC",
+          customLightText: "#1E293B",
+          customLightAccent: "#2563EB",
+          customDarkFill: "#0F172A",
+          customDarkText: "#F1F5F9",
+          customDarkAccent: "#38BDF8",
+        },
+        violet: {
+          customLightFill: "#FDFCFF",
+          customLightText: "#2B213A",
+          customLightAccent: "#7C3AED",
+          customDarkFill: "#181224",
+          customDarkText: "#F3F0FA",
+          customDarkAccent: "#A78BFA",
+        },
+        rose: {
+          customLightFill: "#FFFBFC",
+          customLightText: "#332328",
+          customLightAccent: "#E11D48",
+          customDarkFill: "#1F1318",
+          customDarkText: "#FCEEF2",
+          customDarkAccent: "#FB7185",
+        },
+        slate: {
+          customLightFill: "#FFFFFF",
+          customLightText: "#18181B",
+          customLightAccent: "#09090B",
+          customDarkFill: "#09090B",
+          customDarkText: "#FAFAFA",
+          customDarkAccent: "#E4E4E7",
+        }
+      };
+
+      // 2. 监听表单数据变化，当选择 preset 并且非 custom 时，自动联动改写关联字段
+      CMS.registerEventListener({
+        name: 'preSave',
+        handler: ({ entry }) => {
+          // 在保存前二次校验数据一致性
+          return entry.get('data');
+        },
+      });
+
+      // 注册全局事件代理：当更改 preset 下拉框时联动修改 React 组件状态
+      document.addEventListener('change', (e) => {
+        // 判断是否是全站主题配色方案的下拉菜单
+        if (e.target && e.target.id && e.target.id.startsWith('preset-field')) {
+          const selectedPreset = e.target.value;
+          
+          // 如果选择的是非 custom 的预设配色，自动填充颜色值
+          if (selectedPreset && selectedPreset !== 'custom' && PRESET_COLORS[selectedPreset]) {
+            const colors = PRESET_COLORS[selectedPreset];
+
+            // 触发内部 React 表单变更逻辑，更新输入框和预览区
+            Object.keys(colors).forEach((fieldName) => {
+              const inputEl = document.querySelector(`input[id^="${fieldName}-field"]`);
+              if (inputEl) {
+                // 原生 DOM 改变并触发 React 的 input/change 事件响应
+                const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+                  window.HTMLInputElement.prototype,
+                  'value'
+                ).set;
+                nativeInputValueSetter.call(inputEl, colors[fieldName]);
+
+                const event = new Event('input', { bubbles: true });
+                inputEl.dispatchEvent(event);
+              }
+            });
+          }
+        }
+      });
+    </script>
   </body>
 </html>
