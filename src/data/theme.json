@@ -1,9 +1,9 @@
 {
-  "preset": "forest",
-  "customLightFill": "#FEFCF8",
-  "customLightText": "#2D2A26",
-  "customLightAccent": "#E07020",
+  "preset": "ocean",
+  "customLightFill": "#fbf6f6",
+  "customLightText": "#030303",
+  "customLightAccent": "#eac99c",
   "customDarkFill": "#1C1A18",
-  "customDarkText": "#F0ECE6",
+  "customDarkText": "#414136",
   "customDarkAccent": "#F59E0B"
 }
