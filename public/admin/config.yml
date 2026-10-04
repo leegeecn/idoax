@@ -97,7 +97,7 @@ collections:
           - { label: "【自定义-深色】文字颜色", name: "customDarkText", widget: "color", default: "#F0ECE6", required: false }
           - { label: "【自定义-深色】主题高亮色", name: "customDarkAccent", widget: "color", default: "#F59E0B", required: false }
 
-  # 6. 📸 孩子们的影像地带 (新增相册集合)
+  # 6. 📸 孩子们的影像地带 (相册集合)
   - name: "gallery"
     label: "孩子们的影像地带"
     folder: "src/content/gallery"
@@ -129,3 +129,18 @@ collections:
       - { label: "置顶推荐", name: "featured", widget: "boolean", default: false }
       - { label: "标签 (SEO Tags)", name: "tags", widget: "list", default: ["others"] }
       - { label: "正文内容", name: "body", widget: "markdown" }
+
+  # 8. 🎮 益智游戏管理 (新增集合)
+  - name: "games"
+    label: "开源益智游戏厅"
+    folder: "src/content/games"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "游戏名称", name: "title", widget: "string" }
+      - { label: "游戏在线演示 URL", name: "demoUrl", widget: "string", hint: "例如：https://passer-by.com/pacman/" }
+      - { label: "GitHub 开源项目 URL", name: "githubUrl", widget: "string", hint: "例如：https://github.com/mumuy/pacman" }
+      - { label: "原作者/开发者", name: "author", widget: "string", hint: "例如：mumuy" }
+      - { label: "开发语言/技术栈", name: "tech", widget: "string", default: "HTML/JS", required: false }
+      - { label: "游戏规则与童年回忆简介", name: "description", widget: "text" }
+      - { label: "排序权重", name: "order", widget: "number", default: 1, required: false }
