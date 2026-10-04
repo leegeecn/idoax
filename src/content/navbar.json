@@ -16,6 +16,11 @@
       "external": false
     },
     {
+      "external": false,
+      "label": "影像地带",
+      "url": "/gallery"
+    },
+    {
       "label": "关于",
       "url": "/about",
       "external": false
