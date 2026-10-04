@@ -72,12 +72,9 @@ collections:
               - { label: "平台名称", name: "platform", widget: "string" }
               - { label: "跳转链接", name: "url", widget: "string" }
 
-        # 5.配色文案
-       - name: "color_settings"
-         label: "配色设置"
-         files:
-        - name: "theme"
-        label: "主题风格与配色"
+      # 5. 主题风格与配色设置
+      - name: "theme"
+        label: "主题风格与配色设置"
         file: "src/data/theme.json"
         fields:
           - label: "选择全站主题配色方案"
@@ -92,7 +89,7 @@ collections:
               - { label: "5. 玫瑰 Rose（柔和/典雅/高级感）", value: "rose" }
               - { label: "6. 极简黑白 Slate（经典/高对比度/耐看）", value: "slate" }
               - { label: "7. 🎨 自定义配色（在下方设置）", value: "custom" }
-          
+
           # 选择“自定义”模式时生效的颜色调色盘
           - { label: "【自定义-亮色】页面背景色", name: "customLightFill", widget: "color", default: "#FEFCF8", required: false }
           - { label: "【自定义-亮色】文字颜色", name: "customLightText", widget: "color", default: "#2D2A26", required: false }
@@ -100,6 +97,7 @@ collections:
           - { label: "【自定义-深色】页面背景色", name: "customDarkFill", widget: "color", default: "#1C1A18", required: false }
           - { label: "【自定义-深色】文字颜色", name: "customDarkText", widget: "color", default: "#F0ECE6", required: false }
           - { label: "【自定义-深色】主题高亮色", name: "customDarkAccent", widget: "color", default: "#F59E0B", required: false }
+
   - name: "posts"
     label: "文章管理"
     folder: "src/content/posts"
