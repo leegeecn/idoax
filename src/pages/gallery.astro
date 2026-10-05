@@ -1,145 +1,166 @@
 ---
-import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 
 const items = await getCollection("gallery");
-const sortedItems = items.sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const sortedItems = items.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 
 const childMap: Record<string, string> = {
   haoran: "👦 浩然",
   xinran: "👧 欣然",
-  family: "👨‍👩‍‍👧‍👦 欢聚时光"
+  family: "👨‍👩‍👧‍👦 欢聚时光",
 };
 ---
 
 <Layout title="孩子们的影像地带 - IDOAX">
-  <main class="max-w-7xl mx-auto px-4 py-8">
-  <!-- 顶部面包屑 / 返回首页按钮 -->
-  <div class="mb-6">
-    <a
-      href="/"
-      class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent transition-colors group"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="transition-transform group-hover:-translate-x-1"
-      >
-        <path d="m12 19-7-7 7-7"></path>
-        <path d="M19 12H5"></path>
-      </svg>
-      返回首页
-    </a>
-    </div>
-    <header class="mb-10 text-center">
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">孩子们的影像地带</h1>
-      <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+  <Header />
+
+  <main id="main-content" class="app-layout my-1">
+    <!-- ========== 1. HERO 头部区域（对齐首页风格） ========== -->
+    <section id="hero" class="pt-6 pb-8 text-center sm:pt-10">
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <span class="text-skin-base">孩子们的</span><span
+          class="bg-gradient-to-br from-[#B87A4E] via-[#D69E6B] to-[#E8BE92] bg-clip-text text-transparent"
+          >影像地带</span
+        >
+      </h1>
+      <p class="mt-4 text-base font-medium text-skin-accent sm:text-xl">
         记录浩然与欣然的成长足迹、童真瞬间与珍贵视频
       </p>
-    </header>
+    </section>
 
-    <!-- 瀑布流/网格布局 -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {sortedItems.map((item) => {
-        const { title, type, mediaUrl, posterUrl, child, location, description } = item.data;
-        return (
-          <div class="group relative overflow-hidden rounded-2xl bg-gray-900 shadow-md hover:shadow-xl transition-all duration-500 cursor-pointer media-card"
-               data-type={type}
-               data-url={mediaUrl}
-               data-title={title}
-               data-child={childMap[child] || ''}
-               data-location={location || ''}
-               data-desc={description || ''}>
-            
-            {/* 媒体展现层 */}
-            {type === 'video' ? (
-              <div class="relative w-full h-72">
-                <video
-                  src={mediaUrl}
-                  poster={posterUrl || ''}
-                  preload="metadata"
-                  muted
-                  playsinline
-                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                ></video>
-                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
-                  <div class="w-12 h-12 rounded-full bg-white/80 backdrop-blur text-black flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                    ▶
+    <!-- ========== 2. 媒体画廊网格（对齐首页卡片设计） ========== -->
+    <section id="gallery-grid" class="mx-auto my-6 max-w-6xl">
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {
+          sortedItems.map(item => {
+            const { title, type, mediaUrl, posterUrl, child, location, description } = item.data;
+            return (
+              <div
+                class="group media-card relative overflow-hidden rounded-3xl border border-skin-line bg-skin-card shadow-sm transition hover:-translate-y-1 hover:border-skin-accent hover:shadow-xl cursor-pointer"
+                data-type={type}
+                data-url={mediaUrl}
+                data-title={title}
+                data-child={childMap[child] || ""}
+                data-location={location || ""}
+                data-desc={description || ""}
+              >
+                {/* 媒体展示层 */}
+                {type === "video" ? (
+                  <div class="relative h-64 w-full bg-slate-900 sm:h-72">
+                    <video
+                      src={mediaUrl}
+                      poster={posterUrl || ""}
+                      preload="metadata"
+                      muted
+                      playsinline
+                      class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors group-hover:bg-black/10">
+                      <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-black shadow-lg backdrop-blur transition-transform group-hover:scale-110">
+                        ▶
+                      </div>
+                    </div>
                   </div>
+                ) : (
+                  <div class="relative h-64 w-full bg-slate-900 sm:h-72">
+                    <img
+                      src={mediaUrl}
+                      alt={title}
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+
+                {/* 角色角标 */}
+                <div class="absolute top-3 left-3 z-10 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white backdrop-blur-md">
+                  {childMap[child]}
+                </div>
+
+                {/* 悬停渐变遮罩与文字 */}
+                <div class="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <h3 class="font-bold text-white text-base transform translate-y-2 transition-transform duration-300 group-hover:translate-y-0">
+                    {title}
+                  </h3>
+
+                  {description && (
+                    <p class="mt-1.5 text-xs text-gray-200 line-clamp-2 leading-relaxed transform translate-y-3 transition-transform duration-300 delay-75">
+                      {description}
+                    </p>
+                  )}
+
+                  {location && (
+                    <p class="mt-2 text-[11px] text-amber-300 transform translate-y-3 transition-transform duration-300 delay-100">
+                      📍 {location}
+                    </p>
+                  )}
                 </div>
               </div>
-            ) : (
-              <img
-                src={mediaUrl}
-                alt={title}
-                loading="lazy"
-                class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            )}
+            );
+          })
+        }
+      </div>
+    </section>
 
-            {/* 标签角标 */}
-            <div class="absolute top-3 left-3 z-10 px-2.5 py-1 text-xs font-medium rounded-full bg-black/50 text-white backdrop-blur-md">
-              {childMap[child]}
-            </div>
+    <!-- ========== 3. 全屏灯箱 (Lightbox Modal) ========== -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4 backdrop-blur-md"
+    >
+      <button
+        id="lightbox-close"
+        class="absolute top-5 right-6 z-50 text-3xl font-light text-white transition hover:text-skin-accent"
+        aria-label="关闭预览"
+      >
+        &times;
+      </button>
 
-            {/* 悬停淡入渐出的文字蒙层 */}
-            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-5 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-in-out">
-              <h3 class="text-white font-semibold text-base transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-                {title}
-              </h3>
-              
-              {description && (
-                <p class="text-gray-200 text-xs mt-2 line-clamp-3 leading-relaxed transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 delay-75">
-                  {description}
-                </p>
-              )}
-
-              {location && (
-                <p class="text-gray-400 text-[11px] mt-2 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500 delay-100">
-                  📍 {location}
-                </p>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-
-    <!-- 全屏弹窗大图/视频灯箱 (Lightbox) -->
-    <div id="lightbox" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-md flex items-center justify-center p-4">
-      <button id="lightbox-close" class="absolute top-5 right-6 text-white text-3xl hover:text-gray-300 z-50 p-2">&times;</button>
-      
-      <div class="max-w-5xl w-full max-h-[90vh] flex flex-col md:flex-row items-center bg-gray-900/80 rounded-2xl overflow-hidden border border-gray-800 shadow-2xl">
+      <div
+        class="flex max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-skin-line bg-skin-card shadow-2xl md:flex-row"
+      >
         {/* 媒体展示区 */}
-        <div id="lightbox-media-container" class="w-full md:w-2/3 h-[50vh] md:h-[75vh] flex items-center justify-center bg-black">
-          {/* 动态插入 img 或 video */}
+        <div
+          id="lightbox-media-container"
+          class="flex h-[45vh] w-full items-center justify-center bg-black md:h-[75vh] md:w-2/3"
+        >
+          {/* JS 动态渲染 img 或 video */}
         </div>
 
-        {/* 文字与细节区 */}
-        <div class="w-full md:w-1/3 p-6 flex flex-col justify-between h-auto md:h-[75vh] text-white">
+        {/* 侧边信息区 */}
+        <div
+          class="flex h-auto w-full flex-col justify-between p-6 text-skin-base md:h-[75vh] md:w-1/3"
+        >
           <div>
-            <div id="lightbox-child" class="text-xs font-semibold text-amber-400 uppercase tracking-wider mb-2"></div>
-            <h2 id="lightbox-title" class="text-xl font-bold mb-3"></h2>
-            <p id="lightbox-desc" class="text-gray-300 text-sm leading-relaxed whitespace-pre-line"></p>
+            <div
+              id="lightbox-child"
+              class="mb-2 text-xs font-semibold uppercase tracking-wider text-skin-accent"
+            >
+            </div>
+            <h2 id="lightbox-title" class="mb-3 text-xl font-bold"></h2>
+            <p
+              id="lightbox-desc"
+              class="text-sm leading-relaxed text-skin-base/80 whitespace-pre-line"
+            >
+            </p>
           </div>
 
-          <div class="mt-4 pt-4 border-t border-gray-800">
-            <p id="lightbox-location" class="text-xs text-gray-400"></p>
+          <div class="mt-6 pt-4 border-t border-skin-line">
+            <p id="lightbox-location" class="text-xs text-skin-base/60"></p>
           </div>
         </div>
       </div>
     </div>
   </main>
+
+  <Footer />
 </Layout>
 
-<!-- 灯箱交互逻辑 -->
+<!-- ========== 4. 交互逻辑脚本（兼容 Astro View Transitions） ========== -->
 <script>
   function initGallery() {
     const lightbox = document.getElementById("lightbox");
@@ -167,13 +188,13 @@ const childMap: Record<string, string> = {
           video.src = url;
           video.controls = true;
           video.autoplay = true;
-          video.className = "max-h-full max-w-full rounded-lg";
+          video.className = "max-h-full max-w-full rounded-xl";
           container.appendChild(video);
         } else {
           const img = document.createElement("img");
           img.src = url;
           img.alt = title;
-          img.className = "max-h-full max-w-full object-contain rounded-lg";
+          img.className = "max-h-full max-w-full object-contain rounded-xl";
           container.appendChild(img);
         }
 
@@ -183,12 +204,14 @@ const childMap: Record<string, string> = {
         if (lbLocation) lbLocation.textContent = location ? `📍 ${location}` : "";
 
         lightbox.classList.remove("hidden");
+        lightbox.classList.add("flex");
       });
     });
 
     const close = () => {
       lightbox.classList.add("hidden");
-      container.innerHTML = ""; // 停止视频播放
+      lightbox.classList.remove("flex");
+      container.innerHTML = ""; // 清空元素停止视频播放
     };
 
     closeBtn?.addEventListener("click", close);
@@ -200,6 +223,11 @@ const childMap: Record<string, string> = {
     });
   }
 
-  initGallery();
+  // 保证静态渲染与无刷新路由跳转时逻辑均正常绑定
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    initGallery();
+  } else {
+    document.addEventListener("DOMContentLoaded", initGallery);
+  }
   document.addEventListener("astro:page-load", initGallery);
 </script>
