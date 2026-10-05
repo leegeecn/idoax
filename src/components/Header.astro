@@ -47,14 +47,12 @@ const homeUrl = getRelativeLocaleUrl(locale, "/");
   {t.a11y.skipToContent}
 </a>
 
-<header
-  class="app-layout flex flex-col items-center justify-between sm:flex-row"
->
+<header class="app-layout w-full">
   <div
-    class="border-border bg-background relative flex w-full items-center justify-between border-b py-4 sm:py-6"
+    class="border-border bg-background relative flex w-full flex-col sm:flex-row items-center justify-between border-b py-3 sm:py-6 gap-3 sm:gap-0"
   >
-<!-- 动态 Logo / 品牌名 -->
-    <a href={homeUrl} class="logo flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity">
+    <!-- 动态 Logo / 品牌名 -->
+    <a href={homeUrl} class="logo flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity shrink-0">
       {siteData.logoUrl ? (
         <img 
           src={
@@ -63,7 +61,7 @@ const homeUrl = getRelativeLocaleUrl(locale, "/");
               : getAssetPath(siteData.logoUrl)
           } 
           alt={siteData.brandName || site.title} 
-          class="h-16 w-auto object-contain" 
+          class="h-10 sm:h-16 w-auto object-contain" 
         />
       ) : null}
       {siteData.brandName && (
@@ -71,16 +69,16 @@ const homeUrl = getRelativeLocaleUrl(locale, "/");
       )}
     </a>
 
-    <!-- 动态顶部导航菜单 -->
-    <nav>
-      <ul class="flex space-x-4 items-center">
+    <!-- 动态顶部导航菜单（手机端可横向平滑滚动，防止挤压文字重叠） -->
+    <nav class="w-full sm:w-auto overflow-x-auto no-scrollbar">
+      <ul class="flex items-center space-x-3 sm:space-x-4 whitespace-nowrap justify-center sm:justify-end px-2 sm:px-0">
         {navbarData?.navItems?.map((item) => (
           <li>
             <a
               href={item.url}
               target={item.external ? "_blank" : "_self"}
               rel={item.external ? "noopener noreferrer" : ""}
-              class="hover:text-skin-accent transition-colors font-medium text-sm sm:text-base"
+              class="hover:text-skin-accent transition-colors font-medium text-sm sm:text-base inline-block py-1"
             >
               {item.label}
             </a>
