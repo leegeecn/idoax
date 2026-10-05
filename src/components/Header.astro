@@ -1,5 +1,6 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
+import logoSvg from "@/assets/logo.svg"; // 1. 直接导入资产目录下的 SVG Logo
 import IconUnderline from "@/assets/icons/IconUnderline.svg";
 import IconMenuDeep from "@/assets/icons/IconMenuDeep.svg";
 import IconArchive from "@/assets/icons/IconArchive.svg";
@@ -10,7 +11,7 @@ import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
 import siteData from "../content/site.json";
 import navbarData from "../content/navbar.json";
-import { stripBase, stripLocale, getAssetPath } from "@/utils/withBase";
+import { stripBase, stripLocale } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -54,13 +55,12 @@ const homeUrl = getRelativeLocaleUrl(locale, "/");
   >
     <!-- 动态 Logo / 品牌名 -->
     <a href={homeUrl} class="logo flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity">
-      {siteData.logoUrl ? (
-        <img 
-          src={getAssetPath(siteData.logoUrl)} 
-          alt={siteData.brandName || site.title} 
-          class="h-8 w-auto object-contain" 
-        />
-      ) : null}
+      <!-- 2. 使用导入的 logoSvg.src 渲染静态资源 -->
+      <img 
+        src={logoSvg.src} 
+        alt={siteData.brandName || site.title} 
+        class="h-8 w-auto object-contain" 
+      />
       {siteData.brandName && (
         <span class="text-foreground font-extrabold tracking-tight">{siteData.brandName}</span>
       )}
