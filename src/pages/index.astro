@@ -12,7 +12,6 @@ import { useTranslations } from "@/i18n";
 import config from "@/config";
 import homepageData from "../content/homepage.json";
 
-
 const { posts: postsConfig } = config;
 
 const locale = Astro.currentLocale ?? config.site.lang;
@@ -48,12 +47,12 @@ const homePath = getRelativeLocaleUrl(locale, "");
         </p>
       )}
 
-   {homepageData.heroDescription && (
-  <div 
-    class="prose mx-auto my-6 max-w-2xl text-skin-base/90" 
-    set:html={homepageData.heroDescription}
-  />
-   )}
+      {homepageData.heroDescription && (
+        <div 
+          class="prose mx-auto my-6 max-w-2xl text-skin-base/90" 
+          set:html={homepageData.heroDescription}
+        />
+      )}
 
       {homepageData.ctaText && homepageData.ctaLink && (
         <div class="mt-8">
@@ -240,83 +239,76 @@ const homePath = getRelativeLocaleUrl(locale, "");
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>
-<!-- 3D 全球访客地图挂件区 -->
-<section class="mt-12 py-6 bg-slate-50 dark:bg-slate-800/40 rounded-2xl text-center">
-  <h2 class="text-xl font-bold mb-4">🌍 全球访客足迹</h2>
-  <div class="flex justify-center items-center">
-    <!-- 加入 is:inline 消除 Astro 属性警告 -->
-    <script 
-  is:inline 
-  src="https://revolvermaps-proxy.pubyou2001.workers.dev/embed.js" 
-  data-site="tjmdu4e9wzge" 
-  data-size="400" 
-  data-theme="night" 
-  data-color="ffb23f" 
-  async>
-</script>
-  </div>
-</section>
 
-<!-- 全球祝福与留言墙区 -->
-<section class="mt-10 mb-16">
-  <h2 class="text-2xl font-bold text-center mb-2">🌟 留言与祝福墙</h2>
-  <p class="text-center text-sm text-gray-500 mb-8">无需登录，自动记录城市足迹，欢迎在此留下一句问候！</p>
+    <!-- ========== 6. 自建 3D 全球访客足迹地球挂件 ========== -->
+    <section class="mt-12 mb-10 my-10 flex flex-col items-center justify-center">
+      <h2 class="text-2xl font-bold mb-4 text-center">🌍 全球访客足迹</h2>
+      
+      <!-- 地球渲染容器 -->
+      <div 
+        id="visitor-globe-container" 
+        class="w-[340px] h-[340px] md:w-[420px] md:h-[420px] rounded-full overflow-hidden shadow-2xl bg-slate-900 border border-slate-800"
+      ></div>
+    </section>
 
-  <!-- Waline 渲染容器 -->
-  <div id="waline-container"></div>
-</section>
+    <!-- 1. 引入 3D 地球渲染库 -->
+    <script is:inline src="https://unpkg.com/globe.gl"></script>
 
-<!-- 1. 引入 Waline CDN 样式 -->
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+    <!-- 2. 地球初始化与数据联动脚本 -->
+    <script is:inline>
+      function init3DGlobe() {
+        const container = document.getElementById('visitor-globe-container');
+        if (!container || container.getAttribute('data-globe-inited')) return;
+        container.setAttribute('data-globe-inited', 'true');
 
-<!-- 2. 通过 CDN 引入 Waline 客户端 JS -->
-<script is:inline src="https://unpkg.com/@waline/client@v3/dist/waline.js"></script>
+        const width = container.clientWidth || 340;
 
-<!-- 3. 保底初始脚本 -->
-<script is:inline>
-  function initWalineBoard() {
-    const container = document.getElementById('waline-container');
-    if (!container) return;
+        // 初始化 3D 地球实例
+        const world = Globe()
+          (container)
+          .globeImageUrl('https://img.idoax.com/idoax.com/earth-night.jpg') // 夜景图
+          .backgroundImageUrl('https://img.idoax.com/idoax.com/night-sky.png') // 星空背景
+          .width(width)
+          .height(width)
+          .pointOfView({ lat: 25, lng: 110, altitude: 2.1 }) // 视角初始对准中国/东亚区
+          .pointAltitude('size')
+          .pointColor(() => '#ffaa00') // 暖金色发光打点
+          .pointRadius(0.6)
+          .pointsMerge(true);
 
-    // 如果 JS 还没加载完，等待 100ms 重试
-    if (typeof window.Waline === 'undefined' || typeof window.Waline.init !== 'function') {
-      setTimeout(initWalineBoard, 100);
-      return;
-    }
+        // 开启自动自转与控制设置
+        world.controls().autoRotate = true;
+        world.controls().autoRotateSpeed = 0.8;
+        world.controls().enableZoom = false; // 禁用滚轮缩放
 
-    // 防止重复初始化
-    if (container.hasAttribute('data-waline-inited')) return;
-    container.setAttribute('data-waline-inited', 'true');
+        // 从你的专属二级域名请求打点数据
+        fetch('https://globe.idoax.com/api/globe-data')
+          .then(res => res.json())
+          .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+              world.pointsData(data);
+            } else {
+              // 无数据时的保底节点
+              world.pointsData([
+                { lat: 39.9042, lng: 116.4074, size: 0.15 }, // 北京
+                { lat: 31.2304, lng: 121.4737, size: 0.12 }, // 上海
+                { lat: 37.7749, lng: -122.4194, size: 0.12 } // 旧金山
+              ]);
+            }
+          })
+          .catch(() => {
+            world.pointsData([{ lat: 39.9042, lng: 116.4074, size: 0.1 }]);
+          });
+      }
 
-    window.Waline.init({
-      el: '#waline-container',
-      serverURL: 'https://waline.idoax.com/',
-      lang: 'zh-CN',
-      pageview: true,
-      comment: true,
-      reaction: true,
-      dark: 'html[data-theme="dark"]',
-    });
-  }
-
-  // 1. 静态普通加载保底
-  if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    initWalineBoard();
-  } else {
-    document.addEventListener('DOMContentLoaded', initWalineBoard);
-  }
-
-  // 2. Astro View Transitions 切换页面保底
-  document.addEventListener('astro:page-load', initWalineBoard);
-</script>
-
-<style is:global>
-  /* 适配 IDOAX 主题色 */
-  :root {
-    --waline-theme-color: #4f46e5;
-    --waline-active-color: #4338ca;
-  }
-</style>
+      // 兼容标准加载与 Astro View Transitions 页面切换
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        init3DGlobe();
+      } else {
+        document.addEventListener('DOMContentLoaded', init3DGlobe);
+      }
+      document.addEventListener('astro:page-load', init3DGlobe);
+    </script>
   </main>
 
   <Footer />
