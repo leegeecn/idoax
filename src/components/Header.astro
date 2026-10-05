@@ -53,12 +53,15 @@ const homeUrl = getRelativeLocaleUrl(locale, "/");
   <div
     class="border-border bg-background relative flex w-full items-center justify-between border-b py-4 sm:py-6"
   >
-    <!-- 动态 Logo / 品牌名 -->
+<!-- 动态 Logo / 品牌名 -->
     <a href={homeUrl} class="logo flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity">
-      <!-- 还原：修改回动态从 siteData.logoUrl 读取路径，并包装 getAssetPath -->
       {siteData.logoUrl ? (
         <img 
-          src={getAssetPath(siteData.logoUrl)} 
+          src={
+            siteData.logoUrl.startsWith("http://") || siteData.logoUrl.startsWith("https://")
+              ? siteData.logoUrl
+              : getAssetPath(siteData.logoUrl)
+          } 
           alt={siteData.brandName || site.title} 
           class="h-8 w-auto object-contain" 
         />
