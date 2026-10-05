@@ -33,7 +33,7 @@
 
 /* 修改这里：将 max-w-3xl 改为与游戏/影像地带一致的宽度（如 max-w-5xl 或 max-w-6xl） */
 @utility max-w-app {
-  @apply max-w-5xl;
+  @apply max-w-7xl;
 }
 
 @utility app-layout {
