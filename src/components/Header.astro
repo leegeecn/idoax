@@ -10,7 +10,7 @@ import IconX from "@/assets/icons/IconX.svg";
 import LinkButton from "./LinkButton.astro";
 import siteData from "../content/site.json";
 import navbarData from "../content/navbar.json";
-import { stripBase, stripLocale } from "@/utils/withBase";
+import { stripBase, stripLocale, getAssetPath } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 
@@ -34,6 +34,8 @@ const isActive = (path: string) => {
   const pathArray = path.split("/").filter(p => p.trim());
   return currentPath === path || currentPathArray[0] === pathArray[0];
 };
+
+const homeUrl = getRelativeLocaleUrl(locale, "/");
 ---
 
 <a
@@ -48,34 +50,39 @@ const isActive = (path: string) => {
   class="app-layout flex flex-col items-center justify-between sm:flex-row"
 >
   <div
-    class="border-border bg-background relative flex w-full items-baseline justify-between border-b py-4 sm:items-center sm:py-6"
+    class="border-border bg-background relative flex w-full items-center justify-between border-b py-4 sm:py-6"
   >
-<!-- 动态 Logo / 品牌名 -->
-<a href="/" class="logo font-bold text-xl">
-  {siteData.logoUrl ? (
-    <img src={siteData.logoUrl} alt={siteData.brandName} class="h-8 inline-block" />
-  ) : (
-    <span>{siteData.brandName}</span>
-  )}
-</a>
+    <!-- 动态 Logo / 品牌名 -->
+    <a href={homeUrl} class="logo flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity">
+      {siteData.logoUrl ? (
+        <img 
+          src={getAssetPath(siteData.logoUrl)} 
+          alt={siteData.brandName || site.title} 
+          class="h-8 w-auto object-contain" 
+        />
+      ) : null}
+      {siteData.brandName && (
+        <span class="text-foreground font-extrabold tracking-tight">{siteData.brandName}</span>
+      )}
+    </a>
 
-<!-- 动态顶部导航菜单 -->
-<nav>
-  <ul class="flex space-x-4">
-    {navbarData.navItems.map((item) => (
-      <li>
-        <a
-          href={item.url}
-          target={item.external ? "_blank" : "_self"}
-          rel={item.external ? "noopener noreferrer" : ""}
-          class="hover:text-skin-accent"
-        >
-          {item.label}
-        </a>
-      </li>
-    ))}
-  </ul>
-</nav>
+    <!-- 动态顶部导航菜单 -->
+    <nav>
+      <ul class="flex space-x-4 items-center">
+        {navbarData?.navItems?.map((item) => (
+          <li>
+            <a
+              href={item.url}
+              target={item.external ? "_blank" : "_self"}
+              rel={item.external ? "noopener noreferrer" : ""}
+              class="hover:text-skin-accent transition-colors font-medium text-sm sm:text-base"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </div>
 </header>
 
