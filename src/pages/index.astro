@@ -263,17 +263,16 @@ const homePath = getRelativeLocaleUrl(locale, "");
 
         const width = container.clientWidth || 340;
 
-        // 初始化 3D 地球实例
+        // 初始化 3D 地球实例 (已优化为稳定高速的 JSDelivr 蓝色大理石质感贴图)
         const world = Globe()
           (container)
-          .globeImageUrl('https://img.idoax.com/idoax.com/earth-night.jpg') // 夜景图
-          .backgroundImageUrl('https://img.idoax.com/idoax.com/night-sky.png') // 星空背景
+          .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-blue-marble.jpg')
           .width(width)
           .height(width)
           .pointOfView({ lat: 25, lng: 110, altitude: 2.1 }) // 视角初始对准中国/东亚区
           .pointAltitude('size')
           .pointColor(() => '#ffaa00') // 暖金色发光打点
-          .pointRadius(0.6)
+          .pointRadius(0.8)
           .pointsMerge(true);
 
         // 开启自动自转与控制设置
