@@ -13,6 +13,10 @@
     {
       "platform": "邮箱(admin@idoax.com)",
       "url": "mailto:admin@idoax.com"
+    },
+    {
+      "platform": "隐私政策 Privacy Policy",
+      "url": "/privacy"
     }
   ]
 }
