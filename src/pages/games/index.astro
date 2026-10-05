@@ -1,9 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
 
 // 整理后的开源小游戏列表
 const games = [
-   {
+  {
     title: "俄罗斯方块 (React Tetris)",
     url: "https://leegeecn.github.io/react-tetris/",
     author: "chvin",
@@ -25,49 +27,54 @@ const games = [
 ---
 
 <Layout title="益智游戏厅 - IDOAX">
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <!-- 返回首页链接 -->
-    <div class="mb-6">
-      <a
-        href="/"
-        class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent transition-colors group"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:-translate-x-1">
-          <path d="m12 19-7-7 7-7"></path>
-          <path d="M19 12H5"></path>
-        </svg>
-        返回首页
-      </a>
-    </div>
+  <Header />
 
-    <header class="mb-10 text-center">
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-3">🎮 开源益智游戏厅</h1>
-      <p class="text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
+  <main id="main-content" class="app-layout my-1">
+    <!-- ========== 1. HERO 头部区域（对齐首页风格） ========== -->
+    <section id="hero" class="pt-6 pb-8 text-center sm:pt-10">
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <span class="text-skin-base">开源益智</span><span
+          class="bg-gradient-to-br from-[#B87A4E] via-[#D69E6B] to-[#E8BE92] bg-clip-text text-transparent"
+          >游戏厅</span
+        >
+      </h1>
+      <p class="mt-4 text-base font-medium text-skin-accent sm:text-xl">
         精选 GitHub 上有趣的开源小游戏，致敬经典，随时随地放松一下。
       </p>
-    </header>
+    </section>
 
-    <!-- 游戏卡片网格 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {games.map((game) => (
-        <div class="flex flex-col justify-between rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div>
-            <h3 class="text-xl font-semibold mb-2">{game.title}</h3>
-            <p class="text-xs text-gray-400 mb-3">作者: @{game.author}</p>
-            <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-              {game.desc}
-            </p>
+    <!-- ========== 2. 游戏卡片网格（对齐首页卡片设计） ========== -->
+    <section id="games-grid" class="mx-auto my-8 max-w-6xl">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {games.map((game) => (
+          <div class="group flex flex-col justify-between rounded-3xl border border-skin-line bg-skin-card p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:border-skin-accent hover:shadow-xl">
+            <div>
+              <div class="mb-2 flex items-center justify-between">
+                <h3 class="text-xl font-bold text-skin-base group-hover:text-skin-accent transition-colors">
+                  {game.title}
+                </h3>
+              </div>
+              <p class="mb-4 text-xs font-medium tracking-wider text-skin-accent uppercase">
+                作者: @{game.author}
+              </p>
+              <p class="mb-6 text-sm leading-relaxed text-skin-base/80">
+                {game.desc}
+              </p>
+            </div>
+            
+            <a
+              href={game.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-full bg-skin-accent text-skin-inverted font-medium shadow-md transition duration-300 hover:-translate-y-0.5 hover:opacity-95"
+            >
+              开始游玩 🎮
+            </a>
           </div>
-          <a
-            href={game.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-accent text-white font-medium hover:opacity-90 transition-opacity"
-          >
-            开始游玩 🎮
-          </a>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </section>
   </main>
+
+  <Footer />
 </Layout>
