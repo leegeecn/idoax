@@ -29,6 +29,7 @@ const rssHref = getRelativeLocaleUrl(
   Astro.currentLocale ?? config.site.lang,
   "rss.xml"
 );
+
 // 1. HEX 转 RGB 辅助函数
 function hexToRgb(hex: string, defaultRgb: string): string {
   if (!hex) return defaultRgb;
@@ -95,7 +96,6 @@ if (themeConfig.preset === "custom") {
 }
 ---
 
-
 <!doctype html>
 <html
   dir={site.dir ?? "ltr"}
@@ -105,40 +105,46 @@ if (themeConfig.preset === "custom") {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
-    <link rel="icon" href={getAssetPath("favicon.ico")} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
-<style is:inline define:vars={{
-  lightFill,
-  lightText,
-  lightAccent,
-  darkFill,
-  darkText,
-  darkAccent,
-}}>
-  :root {
-    --color-fill: rgb(var(--lightFill));
-    --color-text-base: rgb(var(--lightText));
-    --color-accent: rgb(var(--lightAccent));
-  }
 
-  html[data-theme="dark"],
-  html.dark {
-    --color-fill: rgb(var(--darkFill));
-    --color-text-base: rgb(var(--darkText));
-    --color-accent: rgb(var(--darkAccent));
-  }
+    <!-- 基础 Favicon 与全平台图标 -->
+    <link rel="icon" type="image/x-icon" href={getAssetPath("favicon.ico")} />
+    <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
+    <link rel="apple-touch-icon" sizes="180x180" href={getAssetPath("apple-touch-icon.png")} />
+    <link rel="manifest" href={getAssetPath("site.webmanifest")} />
 
-  /* 强行保障全局背景和文字颜色使用注入的主题色 */
-  body {
-    background-color: var(--color-fill) !important;
-    color: var(--color-text-base) !important;
-  }
-</style>
+    <style is:inline define:vars={{
+      lightFill,
+      lightText,
+      lightAccent,
+      darkFill,
+      darkText,
+      darkAccent,
+    }}>
+      :root {
+        --color-fill: rgb(var(--lightFill));
+        --color-text-base: rgb(var(--lightText));
+        --color-accent: rgb(var(--lightAccent));
+      }
+
+      html[data-theme="dark"],
+      html.dark {
+        --color-fill: rgb(var(--darkFill));
+        --color-text-base: rgb(var(--darkText));
+        --color-accent: rgb(var(--darkAccent));
+      }
+
+      /* 强行保障全局背景和文字颜色使用注入的主题色 */
+      body {
+        background-color: var(--color-fill) !important;
+        color: var(--color-text-base) !important;
+      }
+    </style>
+
     <!-- Font -->
     <Font
       cssVariable="--font-google-sans-code"
@@ -150,6 +156,7 @@ if (themeConfig.preset === "custom") {
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content={site.author} />
+    <meta name="theme-color" content="#4285F4" />
     <link rel="sitemap" href={getAssetPath("sitemap-index.xml")} />
 
     <!-- Open Graph -->
@@ -174,18 +181,6 @@ if (themeConfig.preset === "custom") {
       title={site.title}
       href={new URL(rssHref, Astro.site)}
     />
-   <!-- 基础 Favicon -->
-   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-   <!-- iOS / Apple 设备 -->
-   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-   <!-- Web App Manifest (PWA / Android 支持) -->
-   <link rel="manifest" href="/site.webmanifest" />
-   <meta name="theme-color" content="#4285F4" />
-    <!-- Filled at runtime by theme.ts to match the current background colour -->
-    <meta name="theme-color" content="" />
 
     <!-- Extra head content injected by child layouts (e.g. JSON-LD, article meta) -->
     <slot name="head" />
