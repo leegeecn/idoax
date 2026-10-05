@@ -174,7 +174,16 @@ if (themeConfig.preset === "custom") {
       title={site.title}
       href={new URL(rssHref, Astro.site)}
     />
+   <!-- 基础 Favicon -->
+   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
+   <!-- iOS / Apple 设备 -->
+   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+   <!-- Web App Manifest (PWA / Android 支持) -->
+   <link rel="manifest" href="/site.webmanifest" />
+   <meta name="theme-color" content="#4285F4" />
     <!-- Filled at runtime by theme.ts to match the current background colour -->
     <meta name="theme-color" content="" />
 
